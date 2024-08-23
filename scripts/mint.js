@@ -16,17 +16,17 @@ const sendShieldedTransaction = async (signer, destination, data, value) => {
 async function main() {
   const contractAddress = ""
   const [signer] = await hre.ethers.getSigners();
-  const contractFactory = await hre.ethers.getContractFactory("ZunXBT");
+  const contractFactory = await hre.ethers.getContractFactory("PERC20Sample");
   const contract = contractFactory.attach(contractAddress);
-  const functionName = "safeMint";
-  const safeMintTx = await sendShieldedTransaction(
+  const functionName = "mint100tokens";
+  const mint100TokensTx = await sendShieldedTransaction(
     signer,
     contractAddress,
-    contract.interface.encodeFunctionData(functionName, [signer.address, 1]),
+    contract.interface.encodeFunctionData(functionName),
     0
   );
-  await safeMintTx.wait();
-  console.log(`Transaction URL of Mint: https://explorer-evm.testnet.swisstronik.com/tx/${safeMintTx.hash}`);
+  await mint100TokensTx.wait();
+  console.log(`Transaction URL of Mint: https://explorer-evm.testnet.swisstronik.com/tx/${mint100TokensTx.hash}`);
 }
 
 main().catch((error) => {
